@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi Drop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Geom:ital,wght@0,300..900;1,300..900&family=Outfit:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Geom:ital,wght@0,300..900;1,300..900&family=Outfit:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="WiFi Drop" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=wifi_tethering" />
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="material-symbols-outlined" style="font-size: 32px;">wifi_tethering</span>
+                    <span>WiFi Drop</span>
+                </div>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="icon-btn"
+                    style="width: 32px; height: 32px; border:none; background:transparent;">
+                    <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="my-profile-section">
+                <label>Your Device Name</label>
+                <div class="input-wrapper">
+                    <input type="text" id="my-name-input" placeholder="Enter name..." autocomplete="off">
+                    <div class="status-indicator" title="Online"></div>
+                </div>
+            </div>
+
+            <div class="peers-list-section">
+                <h3>Available Devices</h3>
+                <div class="peers-list" id="peers-list">
+                    <!-- Peer Items Injected Here -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Default / Radar View -->
+            <div id="radar-view" class="view-section">
+                <div class="radar-container">
+                    <div class="radar-circle"></div>
+                    <div class="radar-circle"></div>
+                    <div class="radar-circle"></div>
+                    <div class="radar-scanner"></div>
+                </div>
+                <h2>Looking for nearby devices...</h2>
+                <p>Select a device from the sidebar to start sharing.</p>
+            </div>
+
+            <!-- Chat / Transfer View -->
+            <div id="chat-view" class="view-section hidden">
+                <header class="chat-header">
+                    <div class="chat-peer-info">
+                        <div class="peer-avatar-small" id="chat-avatar">?</div>
+                        <div class="chat-peer-details">
+                            <span id="chat-peer-name">Peer Name</span>
+                            <span id="chat-peer-status">Connected</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Messages -->
+                </div>
+
+                <div class="chat-input-area">
+                    <button id="upload-btn" class="icon-btn" title="Send File">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                    </button>
+                    <input type="file" id="file-input" hidden>
+                    <input type="text" id="message-input" placeholder="Type a message...">
+                    <button id="send-btn" class="send-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="upload-progress hidden" id="upload-progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="upload-progress-fill"></div>
+                    </div>
+                    <span id="upload-status-text">Uploading...</span>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="close-modal" class="close-btn">&times;</button>
+            <div class="preview-body" id="preview-body">
+                <!-- Image or Icon injected here -->
+            </div>
+            <div class="preview-footer">
+                <div class="file-details">
+                    <span id="preview-filename">filename.jpg</span>
+                    <span id="preview-size">1.2 MB</span>
+                </div>
+                <a id="download-btn" href="#" class="primary-btn" download>Download</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(reg => {
+                    console.log('SW registered:', reg);
+                }).catch(err => console.log('SW error:', err));
+            });
+        }
+    </script>
+</body>
+
+</html>
